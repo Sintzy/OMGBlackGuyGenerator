@@ -4,8 +4,6 @@ const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri);
 const dbName = "omgblackguygenerator";
 
-import { MongoClient, ObjectId } from "mongodb";
-
 export async function GET() {
     try {
         await client.connect();

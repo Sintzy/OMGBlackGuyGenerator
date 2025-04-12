@@ -27,7 +27,7 @@ export async function POST() {
         const collection = db.collection("contador");
 
         const result = await collection.findOneAndUpdate(
-            { _id: "imagens" }, 
+            { _id: "imagens" as any }, 
             { $inc: { total: 1 } }, 
             { returnDocument: "after", upsert: true }
         );

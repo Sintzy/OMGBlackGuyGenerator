@@ -4,19 +4,21 @@ const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri);
 const dbName = "omgblackguygenerator";
 
+import { MongoClient, ObjectId } from "mongodb";
+
 export async function GET() {
     try {
         await client.connect();
         const db = client.db(dbName);
         const collection = db.collection("contador");
 
-        const contador = await collection.findOne({ _id: "imagens" });
+        const contador = await collection.findOne({ _id: "imagens" as any });
 
         return new Response(JSON.stringify({ total: contador?.total || 0 }), {
             status: 200,
         });
     } catch (err) {
-        return new Response("Erro ao buscar contador" +err, { status: 500 });
+        return new Response("Erro ao buscar contador: " + err, { status: 500 });
     }
 }
 

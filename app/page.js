@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import Contador from "../lib/contador";
 
 export default function HomePage() {
   const fileInputRef = useRef(null);
@@ -150,6 +151,7 @@ export default function HomePage() {
             Generate 😎
           </button>
         </div>
+        <Contador/>
       </main>
 
       {/* Footer */}

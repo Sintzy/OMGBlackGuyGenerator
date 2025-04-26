@@ -1,4 +1,3 @@
-
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
@@ -14,8 +13,9 @@ export async function POST(request) {
     }
     const arrayBuffer = await fileField.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
-    //criar a pasta dos uploads(teste)
-    const uploadsDir = path.join(process.cwd(), "uploads");
+
+    // PASTA TEMP DO VERCEL
+    const uploadsDir = path.join('/tmp', 'uploads');
     if (!fs.existsSync(uploadsDir)) {
       await mkdir(uploadsDir, { recursive: true });
     }
@@ -24,7 +24,8 @@ export async function POST(request) {
     await writeFile(tmpPath, buffer);
     const processedBuffer = await processImage(tmpPath);
     await unlink(tmpPath);
-    //retornar
+
+    // retorna em base64
     const base64 = processedBuffer.toString("base64");
     return NextResponse.json({ image: `data:image/png;base64,${base64}` });
   } catch (error) {
